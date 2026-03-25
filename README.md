@@ -1,7 +1,7 @@
 # Google Nest Integration with Timed Fan
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/hacs/integration)
-[![GitHub Release](https://img.shields.io/github/release/YOUR_USERNAME/nest-timed-fan.svg?style=flat-square)](https://github.com/YOUR_USERNAME/nest-timed-fan/releases)
+[![GitHub Release](https://img.shields.io/github/release/mlemilly/nest-timed-fan.svg?style=flat-square)](https://github.com/mlemilly/nest-timed-fan/releases)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](./LICENSE)
 
 This is a Home Assistant custom integration based on the [Google Nest integration](https://github.com/home-assistant/core/tree/dev/homeassistant/components/nest) from Home Assistant Core, with added support for timed fan control.
