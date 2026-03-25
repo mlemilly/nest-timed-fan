@@ -1,0 +1,14 @@
+{
+  "domain": "nest_timed_fan",
+  "name": "Google Nest with Timed Fan",
+  "codeowners": ["@YOUR_USERNAME"],
+  "config_flow": true,
+  "dependencies": ["application_credentials"],
+  "documentation": "https://github.com/YOUR_USERNAME/nest-timed-fan",
+  "integration_type": "hub",
+  "iot_class": "cloud_push",
+  "loggers": ["google_nest_sdm"],
+  "requirements": ["google-nest-sdm==9.1.2"],
+  "version": "0.1.0",
+  "homeassistant": "2024.1.0"
+}
