@@ -130,29 +130,24 @@ class FanRuntimeMinutesSensor(SensorBase):
     @property
     def native_value(self) -> float:
         """Return elapsed fan runtime in minutes while fan is on."""
-        if not self._is_fan_on() or not self._runtime_started_at:
-            return 0
-        elapsed_seconds = max(
-            int((dt_util.utcnow() - self._runtime_started_at).total_seconds()),
-            0,
-        )
-        return round(elapsed_seconds / 60, 2)
+        return round(self._elapsed_seconds() / 60, 2)
 
     @property
     def extra_state_attributes(self) -> dict[str, Any]:
         """Return formatted elapsed runtime."""
-        elapsed_seconds = 0
-        if self._is_fan_on() and self._runtime_started_at:
-            elapsed_seconds = max(
-                int((dt_util.utcnow() - self._runtime_started_at).total_seconds()),
-                0,
-            )
+        elapsed_seconds = self._elapsed_seconds()
         hours, remainder = divmod(elapsed_seconds, 3600)
         minutes, seconds = divmod(remainder, 60)
         return {
             "elapsed_hh_mm_ss": f"{hours:02}:{minutes:02}:{seconds:02}",
             "elapsed_seconds": elapsed_seconds,
         }
+
+    def _elapsed_seconds(self) -> int:
+        """Return elapsed runtime seconds while fan is running."""
+        if not self._is_fan_on() or not self._runtime_started_at:
+            return 0
+        return max(int((dt_util.utcnow() - self._runtime_started_at).total_seconds()), 0)
 
     async def async_added_to_hass(self) -> None:
         """Run when entity is added and register update handlers."""
