@@ -54,6 +54,27 @@ This is a Home Assistant custom integration based on the [Google Nest integratio
 - `google-nest-sdm==9.1.2` or compatible version
 - Dependencies: `ffmpeg`, `http`, `application_credentials`
 
+## Native Fan Runtime Sensor
+
+Each thermostat with fan control now exposes a native runtime sensor:
+
+- `sensor.<device_name>_fan_runtime`
+  - Unit: `min`
+  - Resets to `0` when the fan is off
+  - Includes `elapsed_hh_mm_ss` and `elapsed_seconds` attributes
+
+Example Lovelace card:
+
+```yaml
+type: entities
+title: Nest Fan Runtime
+entities:
+  - entity: climate.your_thermostat
+    name: Thermostat
+  - entity: sensor.your_thermostat_fan_runtime
+    name: Fan Runtime (min)
+```
+
 ## License
 
 This integration is based on code from Home Assistant Core and is licensed under the Apache License 2.0.
