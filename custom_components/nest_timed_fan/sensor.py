@@ -129,7 +129,7 @@ class FanTimerRemainingSensor(SensorBase):
         if FanTrait.NAME not in self._device.traits:
             return False
         trait: FanTrait = self._device.traits[FanTrait.NAME]
-        return trait.timer_mode == "ON" and trait.timer_end_time is not None
+        return trait.timer_mode == "ON" and trait.timer_timeout is not None
 
     @property
     def native_value(self) -> int | None:
@@ -139,20 +139,20 @@ class FanTimerRemainingSensor(SensorBase):
         
         trait: FanTrait = self._device.traits[FanTrait.NAME]
         
-        # Check if fan timer is active and has an end time
-        if trait.timer_mode != "ON" or not trait.timer_end_time:
+        # Check if fan timer is active and has a timeout
+        if trait.timer_mode != "ON" or not trait.timer_timeout:
             return None
         
         try:
             # Parse the ISO format datetime string
-            end_time = datetime.fromisoformat(trait.timer_end_time.replace("Z", "+00:00"))
+            end_time = datetime.fromisoformat(trait.timer_timeout.replace("Z", "+00:00"))
             current_time = datetime.now(end_time.tzinfo)
             remaining = (end_time - current_time).total_seconds()
             
             # Return remaining time in seconds, or 0 if timer has expired
             return max(0, int(remaining))
         except (ValueError, AttributeError, TypeError) as err:
-            _LOGGER.error("Error parsing timer end time: %s", err)
+            _LOGGER.error("Error parsing timer timeout: %s", err)
             return None
 
     @property
