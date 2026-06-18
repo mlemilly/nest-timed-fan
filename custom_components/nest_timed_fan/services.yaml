@@ -1,0 +1,32 @@
+set_fan_timer:
+  name: Set fan timer
+  description: Sets the fan timer with a specified duration
+  fields:
+    entity_id:
+      name: Entity ID
+      description: The climate entity to set the fan timer for
+      required: true
+      example: climate.thermostat
+      selector:
+        entity:
+          domain: climate
+    fan_mode:
+      name: Fan mode
+      description: The fan mode to set (on or off)
+      required: true
+      example: "on"
+      selector:
+        select:
+          options:
+            - "on"
+            - "off"
+    duration:
+      name: Duration
+      description: The duration in seconds to run the fan (optional, defaults to max)
+      required: false
+      example: 3600
+      selector:
+        number:
+          min: 1
+          max: 43200
+          unit_of_measurement: seconds
